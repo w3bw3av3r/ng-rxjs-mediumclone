@@ -1,4 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
+@tailwind base;
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: #0ca6e9;
+}
+
+.mat-card-header-text {
+  margin: 0 !important;
+}

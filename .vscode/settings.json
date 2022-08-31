@@ -1,0 +1,7 @@
+{
+  "prettier.jsxSingleQuote": true,
+  "prettier.singleAttributePerLine": true,
+  "prettier.useTabs": true,
+  "prettier.singleQuote": true,
+  "prettier.useEditorConfig": false
+}

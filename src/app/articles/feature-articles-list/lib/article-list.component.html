@@ -1,0 +1,17 @@
+<div class="article-list-container mt-4">
+  <ng-container *ngIf="articlesProp; else articleIsLoading">
+    <ng-template [ngIf]="articlesProp" else noArticles>
+      <mc-article-list-item
+        *ngFor="let article of articlesProp"
+        [article]="article"
+      >
+      </mc-article-list-item>
+    </ng-template>
+    <ng-template #noArticles>
+      <div>No articles are here... yet.</div>
+    </ng-template>
+  </ng-container>
+
+  <ng-template #articleIsLoading>Loading Articles...</ng-template>
+  <ng-template [ngIf]="errorMessageProp">{{ errorMessageProp }}</ng-template>
+</div>

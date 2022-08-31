@@ -1,0 +1,44 @@
+<div class="sm:flex sm:container sm:mx-auto px-6 pt-10">
+  <div class="sm:flex w-full sm:w-3/4 mr-10 flex-col">
+    <mat-tab-group
+      #matTab
+      animationDuration="0ms"
+      disableRipple="true"
+      (selectedTabChange)="setArticleList($event)"
+    >
+      <mat-tab label="Your Feed" [disabled]="!isAuthenticated">
+        <ng-template matTabContent>
+          <mc-article-list
+            *ngIf="listConfig.type === 'FEED'"
+            [articles]="articles$ | async"
+            [error]="errorMessage$ | async"
+          ></mc-article-list>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Global Feed">
+        <ng-template matTabContent>
+          <mc-article-list
+            *ngIf="listConfig.type === 'ALL'"
+            [articles]="articles$ | async"
+            [error]="errorMessage$ | async"
+          ></mc-article-list>
+        </ng-template>
+      </mat-tab>
+      <mat-tab [label]="tagTab" *ngIf="listConfig.filters.tag">
+        <ng-template matTabContent>
+          <mc-article-list
+            [articles]="articles$ | async"
+            [error]="errorMessage$ | async"
+          ></mc-article-list>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <div class="sm:flex w-full sm:w-1/4">
+    <mc-tag-list
+      class="w-full"
+      [tags]="tags$ | async"
+      (setListTag)="setListTag($event)"
+    ></mc-tag-list>
+  </div>
+</div>
