@@ -7,6 +7,7 @@
       "@default/*": ["src/app/*"],
       "@env/*": ["src/environments/*"],
       "@mc/*": ["src/app/pages/*"],
+      "@mc/pages/auth": ["src/app/pages/auth/index.ts"],
       "@mc/core/http-client": ["src/app/core/http-client/index.ts"],
       "@mc/core/api-types": ["src/app/core/api-types/index.ts"]
     },

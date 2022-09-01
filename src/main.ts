@@ -26,6 +26,13 @@ bootstrapApplication(AppComponent, {
               import('@mc/home/home.routes').then((home) => home.HOME_ROUTES),
           },
           {
+            path: 'register',
+            loadComponent: () =>
+              import('@mc/pages/auth').then(
+                (register) => register.RegisterComponent
+              ),
+          },
+          {
             path: '**',
             redirectTo: '',
           },
