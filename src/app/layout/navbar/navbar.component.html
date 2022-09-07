@@ -14,7 +14,7 @@
           class="main-nav-link"
           >Home</a
         >
-        <ng-template [ngIf]="isLoggedIn" [ngIfElse]="loggedOut">
+        <ng-template [ngIf]="user" [ngIfElse]="loggedOut">
           <a
             [routerLink]="['/login']"
             routerLinkActive="active"
@@ -31,7 +31,7 @@
             [routerLink]="['/login']"
             routerLinkActive="active"
             class="main-nav-link"
-            >{{ user?.username }}</a
+            >{{ user.username }}</a
           >
         </ng-template>
         <ng-template #loggedOut>

@@ -15,6 +15,5 @@ import { AuthService } from './pages/auth/data-access'
 })
 export class AppComponent {
   constructor(private readonly authService: AuthService) {}
-  isLoggedIn = this.authService.isLoggedIn$.value
   userData$ = this.authService.authUser$
 }

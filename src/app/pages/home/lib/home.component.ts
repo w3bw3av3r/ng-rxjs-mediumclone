@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     filters: { limit: 10 },
   }
   errorMessage$: Observable<string[]> = EMPTY
-  isAuthenticated = this.authService.isLoggedIn$.value
+  isAuthenticated = this.authService.authUser
   tagTab: string = ''
 
   ngOnInit(): void {}

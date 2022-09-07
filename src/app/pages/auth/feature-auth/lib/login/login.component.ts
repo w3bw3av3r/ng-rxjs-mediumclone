@@ -1,64 +1,62 @@
 import {
-  Component,
   ChangeDetectionStrategy,
-  ViewChild,
+  Component,
   OnInit,
-  OnDestroy,
+  ViewChild,
 } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { HttpErrorResponse } from '@angular/common/http'
-import { Router, RouterModule } from '@angular/router'
-import { Subject, Subscription } from 'rxjs'
-import { map, catchError, finalize, tap } from 'rxjs/operators'
+import { RouterModule, Router } from '@angular/router'
 import {
   ReactiveFormsModule,
   FormGroup,
   FormBuilder,
   FormGroupDirective,
 } from '@angular/forms'
+import { Subject, Subscription } from 'rxjs'
+import { catchError, finalize, map, tap } from 'rxjs/operators'
 import { AuthService } from '@mc/auth/data-access'
-import { NewUser, UserResponse } from '@mc/core/api-types'
-
+import { LoginUser, UserResponse } from '@mc/core/api-types'
 @Component({
   standalone: true,
-  selector: 'mc-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  selector: 'mc-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
   imports: [CommonModule, RouterModule, ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegisterComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private router: Router
   ) {
     if (this.authService.authUser) {
       this.router.navigateByUrl('/')
     }
   }
-
-  @ViewChild('registerUserFormGroup') registerUserFormGroup!: FormGroupDirective
-  userRegister$!: Subscription
-  registerUserForm: FormGroup = this.fb.group({
-    username: [''],
-    email: [''],
-    password: [''],
+  @ViewChild('loginUserFormGroup') loginUserFormGroup!: FormGroupDirective
+  userLogin$!: Subscription
+  loginUserForm: FormGroup = this.fb.group({
+    email: ['tofu@test.com'],
+    password: ['123'],
   })
   isSubmitting = new Subject<boolean>()
   errors: string[] = []
 
-  get registerForm() {
-    return this.registerUserFormGroup.control
+  get loginForm() {
+    return this.loginUserFormGroup.control
   }
 
-  ngOnInit(): void {}
-
-  handleUserRegistration(userCredentials: NewUser) {
-    this.registerForm.disable()
+  ngOnInit(): void {
     this.isSubmitting.next(true)
-    this.userRegister$ = this.authService
-      .register(userCredentials)
+  }
+
+  handleUserLogin(userCredentials: LoginUser) {
+    this.loginForm.disable()
+    this.isSubmitting.next(true)
+    this.userLogin$ = this.authService
+      .login(userCredentials)
       .pipe(
         tap(({ user }) => this.authService.authUserSubject$.next(user)),
         map(({ user }: UserResponse) => {
@@ -72,14 +70,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
             ))
         ),
         finalize(() => {
-          this.registerForm.enable()
+          this.loginForm.enable()
           this.isSubmitting.next(false)
         })
       )
       .subscribe()
-  }
-
-  ngOnDestroy(): void {
-    if (this.userRegister$) this.userRegister$.unsubscribe()
   }
 }

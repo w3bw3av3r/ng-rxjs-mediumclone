@@ -7,13 +7,13 @@
         <h2
           class="mt-6 text-center text-3xl font-bold tracking-tight text-white"
         >
-          Sign up
+          Sign in
         </h2>
         <p class="mt-2 text-center text-sm text-gray-600">
           <a
-            [routerLink]="['/login']"
+            [routerLink]="['/register']"
             class="font-medium text-sky-200 hover:text-sky-500"
-            >Have an account?</a
+            >Create an account?</a
           >
         </p>
         <div *ngIf="errors.length > 0" class="mt-8">
@@ -28,21 +28,12 @@
         </div>
       </div>
       <form
-        [formGroup]="registerUserForm"
-        #registerUserFormGroup="ngForm"
-        (submit)="handleUserRegistration(registerUserFormGroup.value)"
+        [formGroup]="loginUserForm"
+        #loginUserFormGroup="ngForm"
+        (submit)="handleUserLogin(loginUserFormGroup.value)"
         class="mt-8 space-y-6"
       >
         <div class="rounded-md shadow-sm">
-          <div class="mb-4">
-            <label for="username" class="sr-only">Username</label>
-            <input
-              formControlName="username"
-              type="text"
-              placeholder="Username"
-              class="form-input-text"
-            />
-          </div>
           <div class="mb-4">
             <label for="email-address" class="sr-only">Email address</label>
             <input
@@ -69,7 +60,7 @@
             class="form-submit-btn"
             [disabled]="isSubmitting | async"
           >
-            Sign up
+            Sign in
           </button>
         </div>
       </form>

@@ -35,6 +35,13 @@ bootstrapApplication(AppComponent, {
               import('@mc/pages/home').then((home) => home.HOME_ROUTES),
           },
           {
+            path: 'login',
+            loadComponent: () =>
+              import('@mc/auth/feature-auth').then(
+                (login) => login.LoginComponent
+              ),
+          },
+          {
             path: 'register',
             loadComponent: () =>
               import('@mc/auth/feature-auth').then(

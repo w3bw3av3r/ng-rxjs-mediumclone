@@ -7,3 +7,12 @@ export interface NewUser {
 export interface NewUserRequest {
   user: NewUser
 }
+
+export interface LoginUser {
+  email: string
+  password: string
+}
+
+export interface LoginUserRequest {
+  user: LoginUser
+}
