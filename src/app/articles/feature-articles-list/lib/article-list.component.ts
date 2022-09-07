@@ -6,9 +6,8 @@ import {
   OnInit,
 } from '@angular/core'
 import { EMPTY, Observable, of } from 'rxjs'
-import { Article } from '@default/core/api-types'
+import { Article } from '@mc/core/api-types'
 import { ArticleListItemComponent } from './article-list-item/article-list-item.component'
-import { ArticlesService } from '@default/articles/data-access/lib/services/articles.service'
 
 @Component({
   standalone: true,
@@ -24,6 +23,4 @@ export class ArticleListComponent {
   @Input('error') errorMessageProp!: string[] | null
   articles$: Observable<Article[]> = EMPTY
   isArticleLoading$: Observable<boolean> = of(false)
-
-  constructor(private readonly articlesService: ArticlesService) {}
 }

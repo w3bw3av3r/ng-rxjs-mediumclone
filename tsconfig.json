@@ -4,9 +4,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@default/*": ["src/app/*"],
       "@env/*": ["src/environments/*"],
-      "@mc/*": ["src/app/pages/*"],
+      "@mc/pages/home": ["src/app/pages/home/index.ts"],
+      "@mc/articles/feature-articles": [
+        "src/app/articles/feature-articles-list/index.ts"
+      ],
+      "@mc/articles/data-access": ["src/app/articles/data-access/index.ts"],
+      "@mc/auth/feature-auth": ["src/app/pages/auth/feature-auth/lib/index.ts"],
+      "@mc/auth/data-access": ["src/app/pages/auth/data-access/index.ts"],
       "@mc/core/http-client": ["src/app/core/http-client/index.ts"],
       "@mc/core/api-types": ["src/app/core/api-types/index.ts"]
     },

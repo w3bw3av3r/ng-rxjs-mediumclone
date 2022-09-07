@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common'
-import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { Component, ChangeDetectionStrategy } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { FooterComponent } from './layout/footer/footer.component'
 import { NavbarComponent } from './layout/navbar/navbar.component'
+import { AuthService } from './pages/auth/data-access'
 
 @Component({
   standalone: true,
@@ -13,5 +14,7 @@ import { NavbarComponent } from './layout/navbar/navbar.component'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  isLoggedIn = false
+  constructor(private readonly authService: AuthService) {}
+  isLoggedIn = this.authService.isLoggedIn$.value
+  userData$ = this.authService.authUser$
 }

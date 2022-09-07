@@ -1,16 +1,25 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core'
 import { bootstrapApplication, BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { RouterModule } from '@angular/router'
 import { environment } from '@env/environment'
 
-import { AppComponent } from '@default/app.component'
-import { API_URL } from '@default/core/http-client'
+import { AppComponent } from './app/app.component'
+import { API_URL } from '@mc/core/http-client'
+import { TokenInterceptorService } from '@mc/auth/data-access'
 
 if (environment.production) {
   enableProdMode()
 }
+
+const httpInterceptors = [
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true,
+  },
+]
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -23,7 +32,14 @@ bootstrapApplication(AppComponent, {
           {
             path: '',
             loadChildren: () =>
-              import('@mc/home/home.routes').then((home) => home.HOME_ROUTES),
+              import('@mc/pages/home').then((home) => home.HOME_ROUTES),
+          },
+          {
+            path: 'register',
+            loadComponent: () =>
+              import('@mc/auth/feature-auth').then(
+                (register) => register.RegisterComponent
+              ),
           },
           {
             path: '**',
@@ -38,5 +54,6 @@ bootstrapApplication(AppComponent, {
       )
     ),
     { provide: API_URL, useValue: environment.api_url },
+    ...httpInterceptors,
   ],
 }).catch((err) => console.error(err))

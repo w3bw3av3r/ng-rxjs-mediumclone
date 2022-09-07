@@ -14,17 +14,16 @@ import {
   MatTabChangeEvent,
 } from '@angular/material/tabs'
 import { MatCardModule } from '@angular/material/card'
-import { ArticlesService } from '@default/articles/data-access/lib/services/articles.service'
 import {
   Article,
   ArticlesResponse,
   ArticleListConfig,
   Tag,
-} from '@default/core/api-types'
-import { ArticleListComponent } from '@default/articles/feature-articles-list/lib/article-list.component'
+} from '@mc/core/api-types'
+import { ArticlesService } from '@mc/articles/data-access'
+import { AuthService } from '@mc/auth/data-access'
+import { ArticleListComponent } from '@mc/articles/feature-articles'
 import { TaglistComponent } from './tag-list/tag-list.component'
-
-type ListConfig = 'ALL' | 'FEED'
 
 @Component({
   standalone: true,
@@ -41,7 +40,10 @@ type ListConfig = 'ALL' | 'FEED'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit, AfterViewInit {
-  constructor(private readonly articlesService: ArticlesService) {}
+  constructor(
+    private readonly articlesService: ArticlesService,
+    private readonly authService: AuthService
+  ) {}
 
   @ViewChild('matTab') listTab!: MatTabGroup
   articles$: Observable<Article[]> = EMPTY
@@ -52,7 +54,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     filters: { limit: 10 },
   }
   errorMessage$: Observable<string[]> = EMPTY
-  isAuthenticated = true
+  isAuthenticated = this.authService.isLoggedIn$.value
   tagTab: string = ''
 
   ngOnInit(): void {}

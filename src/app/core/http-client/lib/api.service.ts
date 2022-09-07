@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { Injectable, Inject } from '@angular/core'
 import { Observable } from 'rxjs'
-import { API_URL } from './api-url.token'
+import { API_URL } from '@mc/core/http-client'
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -14,6 +14,12 @@ export class ApiService {
     return this.http.get<T>(`${this.api_url}${url}`, {
       headers: this.headers,
       params,
+    })
+  }
+
+  post<T, D>(url: string, data: D): Observable<T> {
+    return this.http.post<T>(`${this.api_url}${url}`, JSON.stringify(data), {
+      headers: this.headers,
     })
   }
 
