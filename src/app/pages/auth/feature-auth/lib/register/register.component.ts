@@ -7,9 +7,9 @@ import {
 } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { HttpErrorResponse } from '@angular/common/http'
-import { Router } from '@angular/router'
-import { map, catchError, finalize } from 'rxjs/operators'
+import { Router, RouterModule } from '@angular/router'
 import { Subject, Subscription } from 'rxjs'
+import { map, catchError, finalize, tap } from 'rxjs/operators'
 import {
   ReactiveFormsModule,
   FormGroup,
@@ -24,7 +24,7 @@ import { NewUser, UserResponse } from '@mc/core/api-types'
   selector: 'mc-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent implements OnInit, OnDestroy {
@@ -33,11 +33,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private router: Router,
     private readonly authService: AuthService
   ) {
-    console.debug(
-      '[RegisterComponent] authService.isLoggedIn$.value>>>',
-      this.authService.isLoggedIn$.value
-    )
-    if (this.authService.isLoggedIn$.value) {
+    if (this.authService.authUser) {
       this.router.navigateByUrl('/')
     }
   }
@@ -64,6 +60,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.userRegister$ = this.authService
       .register(userCredentials)
       .pipe(
+        tap(({ user }) => this.authService.authUserSubject$.next(user)),
         map(({ user }: UserResponse) => {
           this.authService.setItem('user', user)
           this.router.navigateByUrl('/')

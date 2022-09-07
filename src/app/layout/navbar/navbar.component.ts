@@ -17,7 +17,7 @@ import { User } from '@mc/core/api-types'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent implements OnInit {
-  @Input() isLoggedIn: boolean = false
+  // @Input() isLoggedIn: boolean = false
   @Input() user: User | null = null
   avatar: string | undefined = undefined
 
