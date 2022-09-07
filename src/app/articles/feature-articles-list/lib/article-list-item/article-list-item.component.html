@@ -1,12 +1,12 @@
 <div class="mt-4">
   <mat-card
     *ngIf="articleProp?.author"
-    class="dark:bg-slate-800 my-4 !rounded-md"
+    class="dark:bg-slate-500/[0.2] bg-gray-100 my-4 !rounded-md"
   >
     <mat-card-header class="m-0 !flex-col">
       <mat-card-subtitle>
         <div class="flex gap-2 items-center justify-between">
-          <div class="flex">
+          <div class="flex items-center">
             <div class="flex mr-2">
               <span>
                 <img
@@ -18,7 +18,7 @@
             </div>
             <div class="flex">
               <div>
-                <p>
+                <p class="text-sky-500">
                   {{ articleProp?.author?.username }}
                 </p>
                 <p class="text-xs">
@@ -28,7 +28,7 @@
             </div>
           </div>
           <div
-            class="flex bg-sky-500 text-sky-200 px-2 py-[2px] rounded-full border border-sky-200 drop-shadow-lg items-center"
+            class="flex bg-sky-500 text-sky-200 pl-[4px] pr-[8px] py-[0px] rounded-full border border-sky-200 items-center"
           >
             <mat-icon
               class="text-base text-center"
@@ -36,7 +36,7 @@
               aria-label="favorite icon"
               fontIcon="favorite"
             ></mat-icon>
-            <span>
+            <span class="text-[14px]">
               {{ articleProp?.favoritesCount }}
             </span>
           </div>
@@ -46,21 +46,25 @@
     <mat-card-content class="">
       <div class="flex justify-between align-baseline">
         <div class="">
-          <div class="text-2xl">{{ articleProp?.title }}</div>
-          <div class="text-[#ffffffb3] mb-3">
+          <div class="text-white font-semibold text-lg md:text-2xl">
+            {{ articleProp?.title }}
+          </div>
+          <div class="text-gray-400 mb-2 mt-1 text-base">
             {{ articleProp?.description }}
           </div>
           <div>
-            <span class="text-[12px]">Read more...</span>
+            <span class="text-[12px] italic">Read more...</span>
           </div>
         </div>
-        <div class="flex items-end gap-x-2">
-          <span
-            class="rounded-full bg-slate-600 px-2 py-1"
-            *ngFor="let tag of articleProp?.tagList"
-            >{{ tag }}</span
-          >
-        </div>
+      </div>
+      <div
+        class="flex gap-x-2 text-[14px] text-white mt-3 mb-2 justify-start md:justify-end"
+      >
+        <span
+          class="rounded-full bg-slate-600 px-2 py-1 mb-[6px]"
+          *ngFor="let tag of articleProp?.tagList"
+          >{{ tag }}</span
+        >
       </div>
     </mat-card-content>
   </mat-card>

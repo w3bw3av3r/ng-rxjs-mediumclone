@@ -1,5 +1,7 @@
-<div class="sm:flex sm:container sm:mx-auto px-6 pt-10">
-  <div class="sm:flex w-full sm:w-3/4 mr-10 flex-col">
+<div
+  class="flex mx-auto px-8 py-10 mb-20 flex-col-reverse md:px-16 md:flex-row lg:container"
+>
+  <div class="flex w-full mr-10 flex-col md:w-3/4">
     <mat-tab-group
       #matTab
       animationDuration="0ms"
@@ -34,7 +36,7 @@
       </mat-tab>
     </mat-tab-group>
   </div>
-  <div class="sm:flex w-full sm:w-1/4">
+  <div class="flex w-full mb-4 md:w-1/4">
     <mc-tag-list
       class="w-full"
       [tags]="tags$ | async"
@@ -42,3 +44,4 @@
     ></mc-tag-list>
   </div>
 </div>
+<!-- fixed right-[max(0px,calc(50%-36rem))] w-[16.5rem] -->

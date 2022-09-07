@@ -6,7 +6,7 @@ import {
   Input,
   Output,
 } from '@angular/core'
-import { Tag } from '@default/core/api-types'
+import { Tag } from '@mc/core/api-types'
 
 @Component({
   standalone: true,
