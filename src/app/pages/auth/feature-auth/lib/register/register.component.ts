@@ -8,7 +8,7 @@ import {
 import { CommonModule } from '@angular/common'
 import { HttpErrorResponse } from '@angular/common/http'
 import { Router } from '@angular/router'
-import { map, catchError, tap, finalize } from 'rxjs/operators'
+import { map, catchError, finalize } from 'rxjs/operators'
 import { Subject, Subscription } from 'rxjs'
 import {
   ReactiveFormsModule,
