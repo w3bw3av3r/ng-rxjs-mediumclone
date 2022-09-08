@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http'
 import { Observable } from 'rxjs'
 import { AuthService } from '@mc/auth/data-access'
+import { User } from '@mc/core/api-types'
 
 @Injectable()
 export class TokenInterceptorService implements HttpInterceptor {
@@ -16,11 +17,11 @@ export class TokenInterceptorService implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const jwtToken = this.authService.authUser?.token
-    if (jwtToken) {
+    let jwtToken: User | null = this.authService.authUser
+    if (jwtToken?.token) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Token ${jwtToken}`,
+          Authorization: `Token ${jwtToken.token}`,
         },
       })
     }

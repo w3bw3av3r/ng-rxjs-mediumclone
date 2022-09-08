@@ -22,6 +22,7 @@ export class AuthService {
   }
 
   public get authUser(): User | null {
+    this.authUserSubject$.next(this.getItem('user'))
     return this.authUserSubject$.value
   }
 

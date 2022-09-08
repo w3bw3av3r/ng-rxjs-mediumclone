@@ -67,6 +67,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   setArticleList({ index: tabIndex }: MatTabChangeEvent) {
+    this.isAuthenticated = this.authService.authUser
+    if (this.isAuthenticated === null && this.listTab.selectedIndex === 0) {
+      this.listTab.selectedIndex = 1
+    }
     this.errorMessage$ = EMPTY
     if (tabIndex <= 1) {
       this.listConfig = {
